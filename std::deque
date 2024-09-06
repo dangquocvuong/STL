@@ -1,0 +1,110 @@
+//std::deque
+#include <iostream>
+#include <vector>
+#include <deque>
+#include <algorithm>
+#include <iterator>
+
+using namespace std;
+
+template<typename T>
+void display(const std::deque<T>& d){
+	std::cout << "[ ";
+	for (const auto& element : d) {
+		cout << element << " ";
+	}
+	std::cout << "]\n";
+}
+
+void test1() {
+	cout << "\nTest 1 =================================" << endl;
+
+	std::deque<int> d{ 1,2,3,4,5 };
+	display(d);
+
+	d = { 2,4,5,6 };
+	display(d);
+
+	std::deque<int> d1(10,1000);
+	display(d1);
+
+	d[0] = 99;
+	d.at(1) = 98;
+	display(d);
+}
+
+void test2() {
+	cout << "\nTest 2 =================================" << endl;
+	std::deque<int> d{ 0,0,0 };
+	display(d);
+
+	d.push_back(10);
+	d.push_back(20);
+	display(d);
+
+	d.push_front(1);
+	d.push_front(2);
+	display(d);
+
+	cout << "Front: " << d.front() << endl;
+	cout << "Back: " << d.back() << endl;
+	cout << "Size: " << d.size() << endl;
+	cout << "max_size: " << d.max_size() << endl;
+
+	d.pop_back();
+	d.pop_front();
+	display(d);
+}
+
+void test3() {
+	cout << "\nTest 3 =================================" << endl;
+	std::vector<int> v{ 1,2,3,4,5,6,7,8,9,10 };
+	std::deque<int> d;
+
+	for (auto& e : v)
+	{
+		if (e % 2 == 0)
+			d.push_back(e);
+		else
+			d.push_front(e);
+	}
+	display(d);
+}
+
+void test4() {
+	cout << "\nTest 4 =================================" << endl;
+	std::vector<int> v{ 1,2,3,4,5,6,7,8,9,10 };
+	std::deque<int> d;
+	for (const auto& e : v)
+		d.push_front(e);
+	display(d);
+
+	d.clear();
+
+	for (const auto& e : v)
+		d.push_back(e);
+	display(d);
+}
+
+void test5() {
+	cout << "\nTest 5 =================================" << endl;
+	std::vector<int> v{ 1,2,3,4,5,6,7,8,9,10 };
+	std::deque<int> d;
+
+	std::copy(v.begin(), v.end(), std::front_inserter(d));
+	display(d);
+
+	d.clear();
+
+	std::copy(v.begin(), v.end(), std::back_inserter(d));
+	display(d);
+}
+
+int main(){
+	//test1();
+	//test2();
+	//test3();
+	//test4();
+	test5();
+	return 0;
+}
