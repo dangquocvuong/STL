@@ -1,0 +1,82 @@
+#include <iostream>
+#include <vector>
+#include <list>
+#include <algorithm>
+#include <cctype>
+using namespace std;
+
+class Person {
+	string name;
+	int age;
+public:
+	Person() = default;
+	Person(string name, int age) : name(name), age(age) {}
+	bool operator<(const Person &rhs) {
+		return (this->age < rhs.age);
+	}
+
+	bool operator==(const Person& rhs) {
+		return (this->name == rhs.name && this->age==rhs.age);
+	}
+};
+
+void find_test() {
+	list<Person> players{
+		{"Larry", 15},
+		{"Moe", 20},
+		{"Curly", 30}
+	};
+
+	Person p1{ "Larry", 15 };
+	Person p2{ "Larry", 60 };
+
+	std::list<Person>::iterator itr = std::find(players.begin(), players.end(),p2);
+
+	if (itr != players.end())
+		cout << "\nPlayer found!!!" << endl;
+	else
+		cout << "\nPlayer not found!!!" << endl;
+}
+
+void count_test() {
+
+	vector<int> v{1, 2, 3, 4, 5, 1, 1, 1, 1, 1, 7, 8, 9, 0, 0, 0, 6, 3, 9};
+	int num = std::count(v.begin(), v.end(), 1);
+	cout << num << endl;
+}
+
+void count_if_test() {
+	vector<int> v{ 1, 2, 3, 4, 5, 1, 1, 1, 1, 1, 7, 8, 9, 0, 0, 0, 6, 3, 9 };
+	int num = std::count_if(v.begin(), v.end(), [](int x){return (x % 2 == 0); });
+	cout << "\n" << num << endl;
+}
+
+void replace_test() {
+	vector<int> v{ 1, 2, 3, 4, 5, 1 };
+	std::replace(v.begin(), v.end(), 1, 100);
+	for (auto i : v)
+		cout << i << " ";
+	//result: 100 2 3 4 5 100
+}
+
+void all_of_test() {
+	vector<int> v{ 1, 2, 3, 4, 5, 1, 1, 1, 1, 1, 7, 8, 9, 0, 0, 0, 6, 3, 9 };
+	bool flag = std::all_of(v.begin(), v.end(), [](int x) {return x >= 0; });
+	cout << flag; // TRUE
+}
+
+void string_transform_test() {
+	string st1{ "my name is v" };
+	std::transform(st1.begin(), st1.end(), st1.begin(), ::towupper);
+	cout << st1; //result: MY NAME IS V
+}
+
+int main(){
+	//find_test();
+	//count_test();
+	//count_if_test();
+	//replace_test();
+	//all_of_test();
+	string_transform_test();
+	return 0;
+}
